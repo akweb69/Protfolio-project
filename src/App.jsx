@@ -4,6 +4,7 @@ import HomeLayout from "./Public/Layout/HomeLayout";
 import Dashboard from "./Admin/Dashboard/Dashboard";
 import HeroSection from "./Admin/Components/HeroSection";
 import Settings from "./Admin/Components/Settings";
+import HomePage from "./Public/Common/HomePage";
 
 const App = () => {
   return (
@@ -11,7 +12,11 @@ const App = () => {
       {/* Routes */}
       <Routes>
         {/* Public route */}
-        <Route path="/" element={<HomeLayout />} />
+        <Route path="/" element={<HomeLayout />}>
+          {/* children routes */}
+          <Route path="/" element={<HomePage></HomePage>} />
+
+        </Route>
 
         {/* Admin routes */}
         <Route path="/admin" element={<Dashboard />}>
