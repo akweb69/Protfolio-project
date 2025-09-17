@@ -75,13 +75,12 @@ const HeroSection = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         setLoading(true);
-
+        const id = "68c78ec3ded161647f3bea17"
         try {
             const response = await axios.patch(
-                `${BASE_URL}/update-hero-section`,
+                `${BASE_URL}/update-hero-section/${id}`,
                 formData
             );
-
             console.log("Hero section updated successfully:", response.data);
             toast.success("Hero section updated successfully!");
         } catch (error) {
