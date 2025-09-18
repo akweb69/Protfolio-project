@@ -11,7 +11,7 @@ const Skills = () => {
     const [loading, setLoading] = React.useState(false);
     const [data, setData] = React.useState([]);
     const [editId, setEditId] = React.useState(null);
-    const [deleteId, setDeleteId] = React.useState(null); // 👉 delete confirm modal এর জন্য
+    const [deleteId, setDeleteId] = React.useState(null);
 
     const BASE_URL = import.meta.env.VITE_BASE_URL;
 

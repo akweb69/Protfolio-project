@@ -7,6 +7,7 @@ import Settings from "./Admin/Components/Settings";
 import HomePage from "./Public/Common/HomePage";
 import AboutMe from "./Admin/Components/AboutMe";
 import Skills from "./Admin/Components/Skills";
+import Educations from "./Admin/Components/Educations";
 
 const App = () => {
   return (
@@ -26,6 +27,7 @@ const App = () => {
           <Route path="hero-section" element={<HeroSection />} />
           <Route path="about-me" element={<AboutMe />} />
           <Route path="skills" element={<Skills />} />
+          <Route path="educations" element={<Educations />} />
           <Route path="settings" element={<Settings />} />
         </Route>
       </Routes>

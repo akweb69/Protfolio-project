@@ -7,6 +7,7 @@ const DashboardAsideBar = () => {
         { name: "Hero Section", link: "/admin/hero-section" },
         { name: "About Me", link: "/admin/about-me" },
         { name: "Skills", link: "/admin/skills" },
+        { name: "Eductions", link: "/admin/educations" },
         { name: "Settings", link: "/admin/settings" },
     ];
     return (
