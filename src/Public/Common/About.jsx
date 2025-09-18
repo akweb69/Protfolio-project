@@ -47,7 +47,7 @@ const About = () => {
                     <h1 className="text-3xl text-center md:text-4xl font-bold fontHeader text-teal-500">
                         Educations
                     </h1>
-                    <div className="divider divider-accent "></div>
+                    <div className="divider  "></div>
                     {/* main component */}
                     <Education></Education>
                 </div>
@@ -56,7 +56,7 @@ const About = () => {
                     <h1 className="text-3xl text-center md:text-4xl font-bold fontHeader text-teal-500">
                         Skills
                     </h1>
-                    <div className="divider divider-accent "></div>
+                    <div className="divider "></div>
                     {/* main component */}
                     <Skills></Skills>
                 </div>
