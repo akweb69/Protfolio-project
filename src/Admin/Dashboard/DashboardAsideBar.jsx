@@ -5,6 +5,7 @@ const DashboardAsideBar = () => {
     const [selected, setSelected] = useState(0);
     const LinkItems = [
         { name: "Hero Section", link: "/admin/hero-section" },
+        { name: "About Me", link: "/admin/about-me" },
         { name: "Settings", link: "/admin/settings" },
     ];
     return (

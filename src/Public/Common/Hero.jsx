@@ -71,7 +71,7 @@ const Hero = () => {
                 animate-pulse">
                         {data[0]?.title || "Welcome to My Portfolio"}
                     </h1>
-                    <h2 className="text-2xl md:text-4xl lg:text-5xl font-bold mb-2 text-center 
+                    <h2 className="text-2xl md:text-4xl lg:text-5xl font-bold mb-2 fontHeader
                 bg-gradient-to-tr from-green-500 w-fit  
                 bg-clip-text text-transparent  to-teal-500
                 drop-shadow-[0_0_10px_rgba(148,85,247,0.8)] 

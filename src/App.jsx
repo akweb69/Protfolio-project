@@ -5,6 +5,7 @@ import Dashboard from "./Admin/Dashboard/Dashboard";
 import HeroSection from "./Admin/Components/HeroSection";
 import Settings from "./Admin/Components/Settings";
 import HomePage from "./Public/Common/HomePage";
+import AboutMe from "./Admin/Components/AboutMe";
 
 const App = () => {
   return (
@@ -22,6 +23,7 @@ const App = () => {
         <Route path="/admin" element={<Dashboard />}>
           {/* children route */}
           <Route path="hero-section" element={<HeroSection />} />
+          <Route path="about-me" element={<AboutMe />} />
           <Route path="settings" element={<Settings />} />
         </Route>
       </Routes>

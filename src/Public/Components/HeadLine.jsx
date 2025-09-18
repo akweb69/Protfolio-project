@@ -6,7 +6,7 @@ const HeadLine = ({ title, subTitle }) => {
                 bg-gradient-to-tr from-green-500 w-fit mx-auto 
                 bg-clip-text text-transparent  to-teal-500
                 drop-shadow-[0_0_10px_rgba(168,85,247,0.8)] 
-                animate-bounce"
+                animate-bounce fontHeader"
             >
                 {title}
             </h2>
