@@ -6,6 +6,7 @@ import HeroSection from "./Admin/Components/HeroSection";
 import Settings from "./Admin/Components/Settings";
 import HomePage from "./Public/Common/HomePage";
 import AboutMe from "./Admin/Components/AboutMe";
+import Skills from "./Admin/Components/Skills";
 
 const App = () => {
   return (
@@ -24,6 +25,7 @@ const App = () => {
           {/* children route */}
           <Route path="hero-section" element={<HeroSection />} />
           <Route path="about-me" element={<AboutMe />} />
+          <Route path="skills" element={<Skills />} />
           <Route path="settings" element={<Settings />} />
         </Route>
       </Routes>
