@@ -68,7 +68,7 @@ const Education = () => {
                     {/* Info */}
                     <div className="flex-1 space-y-2 z-10">
                         <h3 className="text-xl font-bold text-accent flex items-center gap-2">
-                            <MdSchool className="text-accent" /> {edu.degreeName} ({edu.passingYear})
+                            <MdSchool className="text-accent" /> {edu.degreeName}
                         </h3>
 
                         <p className="text-gray-200 text-sm flex items-center gap-2">
@@ -81,6 +81,9 @@ const Education = () => {
 
                         <p className="text-gray-300 text-sm flex items-center gap-2">
                             <FaCalendarAlt className="text-yellow-400" /> Session: {edu.session} | Duration: {edu.courseDuration}
+                        </p>
+                        <p className="text-gray-300 text-sm flex items-center gap-2">
+                            <FaCalendarAlt className="text-yellow-400" /> Passing Year: {edu.passingYear}
                         </p>
 
                         <p className="text-gray-300 text-sm">
@@ -95,7 +98,7 @@ const Education = () => {
                             </p>
                         )}
 
-                        {edu.hasAward && edu.award && (
+                        {edu.hasAward === "yes" && edu.award && (
                             <motion.div
                                 initial={{ opacity: 0 }}
                                 whileInView={{ opacity: 1 }}
