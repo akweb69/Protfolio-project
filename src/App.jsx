@@ -8,6 +8,14 @@ import HomePage from "./Public/Common/HomePage";
 import AboutMe from "./Admin/Components/AboutMe";
 import Skills from "./Admin/Components/Skills";
 import Educations from "./Admin/Components/Educations";
+import Research_Publications from "./Admin/Components/Research_Publications";
+import Training from "./Admin/Components/Training";
+import Leadership from "./Admin/Components/Leadership";
+import Activities from "./Admin/Components/Activities";
+import Experience from "./Admin/Components/Experience";
+import Appoinments from "./Admin/Components/Appoinments";
+import Reviews from "./Admin/Components/Reviews";
+import Gellery from "./Admin/Components/Gellery";
 
 const App = () => {
   return (
@@ -28,7 +36,15 @@ const App = () => {
           <Route path="about-me" element={<AboutMe />} />
           <Route path="skills" element={<Skills />} />
           <Route path="educations" element={<Educations />} />
+          <Route path="publications" element={<Research_Publications />} />
           <Route path="settings" element={<Settings />} />
+          <Route path="trainings" element={<Training />} />
+          <Route path="leadership" element={<Leadership />} />
+          <Route path="activities" element={<Activities />} />
+          <Route path="experience" element={<Experience />} />
+          <Route path="appoinments" element={<Appoinments />} />
+          <Route path="reviews" element={<Reviews />} />
+          <Route path="gellery" element={<Gellery />} />
         </Route>
       </Routes>
 

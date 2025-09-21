@@ -8,10 +8,18 @@ const DashboardAsideBar = () => {
         { name: "About Me", link: "/admin/about-me" },
         { name: "Skills", link: "/admin/skills" },
         { name: "Eductions", link: "/admin/educations" },
+        { name: "publications", link: "/admin/publications" },
+        { name: "trainings", link: "/admin/trainings" },
         { name: "Settings", link: "/admin/settings" },
+        { name: "Leadership", link: "/admin/Leadership" },
+        { name: "activities", link: "/admin/activities" },
+        { name: "experience", link: "/admin/experience" },
+        { name: "appoinments", link: "/admin/appoinments" },
+        { name: "reviews", link: "/admin/reviews" },
+        { name: "gellery", link: "/admin/gellery" },
     ];
     return (
-        <div className="w-full h-full  overflow-y-auto 
+        <div className="w-full max-h-screen  overflow-y-scroll 
       bg-[rgba(255,255,255,0.1)] 
       backdrop-blur-md 
       border border-[rgba(255,255,255,0.2)] 
