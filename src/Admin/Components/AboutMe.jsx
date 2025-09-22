@@ -5,7 +5,8 @@ import UpdateLoading from "./UpdateLoading";
 
 const AboutMe = () => {
     const [formData, setFormData] = React.useState({
-        descriptions: "", name: "",
+        descriptions: "",
+        name: "",
     });
     // handle loading
     const [loading, setLoading] = React.useState(false);
@@ -19,10 +20,9 @@ const AboutMe = () => {
         }));
     };
 
-
     // load default value
     useEffect(() => {
-        setLoading(true)
+        setLoading(true);
         axios
             .get(`${BASE_URL}/about-section`)
             .then((response) => {
@@ -39,7 +39,7 @@ const AboutMe = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         setLoading(true);
-        const id = "68cbd163653bd1b3d06c40aa"
+        const id = "68cbd163653bd1b3d06c40aa";
         try {
             const response = await axios.patch(
                 `${BASE_URL}/update-about-section/${id}`,
@@ -55,15 +55,17 @@ const AboutMe = () => {
         }
     };
     if (loading) {
-        return (
-            <UpdateLoading></UpdateLoading>
-        )
+        return <UpdateLoading></UpdateLoading>;
     }
 
     return (
         <div className="w-full h-full bg-black/10 backdrop-blur-md shadow-lg rounded-2xl p-6">
-            <h2 className="text-white text-3xl font-bold mb-2">Update About Section</h2>
-            <p className="text-gray-300">Manage the about  section content and settings.</p>
+            <h2 className="text-white text-3xl font-bold mb-2">
+                Update About Section
+            </h2>
+            <p className="text-gray-300">
+                Manage the about section content and settings.
+            </p>
             <div className="divider"></div>
             <form
                 onSubmit={handleSubmit}
@@ -86,7 +88,10 @@ const AboutMe = () => {
                 </div>
                 {/* Descriptions */}
                 <div className="md:col-span-2">
-                    <label htmlFor="descriptions" className="block text-sm mb-1 font-medium">
+                    <label
+                        htmlFor="descriptions"
+                        className="block text-sm mb-1 font-medium"
+                    >
                         About Descriptions
                     </label>
                     <textarea
