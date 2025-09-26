@@ -69,7 +69,7 @@ const Hero = () => {
 
     return (
         <section className="flex w-full min-h-[90vh] items-center justify-center">
-            <div className="w-11/12 mx-auto md:grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+            <div className="w-11/12 md:w-10/12  mx-auto md:grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
                 {/* Text Content */}
                 <motion.div
                     variants={textVariants}
