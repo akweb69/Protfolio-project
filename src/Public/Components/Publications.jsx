@@ -106,10 +106,11 @@ const Publications = () => {
                                 {publication.description}
                             </p>
                             {/* Buttons */}
-                            <div className="flex gap-3 mt-auto">
+                            <div className="lg:flex gap-3 mt-auto">
                                 <button
                                     onClick={() => setSelectedPub(publication)}
-                                    className="flex items-center gap-2 px-4 py-2 rounded-lg bg-teal-600 text-white hover:bg-teal-700 transition-colors"
+                                    className="flex items-center gap-2 px-4 py-2 rounded-lg bg-teal-600 text-white hover:bg-teal-700 transition-colors w-full mb-4 lg:mb-0
+                                    "
                                 >
                                     <FaInfoCircle size={18} />
                                     More Details
@@ -119,7 +120,7 @@ const Publications = () => {
                                         href={publication.publicationLink}
                                         target="_blank"
                                         rel="noopener noreferrer"
-                                        className="flex items-center gap-2 px-4 py-2 rounded-lg bg-emerald-600 text-white hover:bg-emerald-700 transition-colors"
+                                        className="flex items-center gap-2 px-4 py-2 rounded-lg bg-emerald-600 text-white hover:bg-emerald-700 w-full transition-colors"
                                     >
                                         <FaExternalLinkAlt size={18} />
                                         Go to Publication
