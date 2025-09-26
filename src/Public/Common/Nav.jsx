@@ -52,24 +52,24 @@ const Nav = () => {
                         <Link to={"/"} className="hover:text-blue-400 transition-colors">
                             Home
                         </Link>
-                        <Link to={"/about"} className="hover:text-blue-400 transition-colors">
+                        <a href="#about" className="hover:text-blue-400 transition-colors">
                             About
-                        </Link>
-                        <Link
-                            to={"/projects"}
+                        </a>
+                        <a
+                            href="#publications"
                             className="hover:text-blue-400 transition-colors"
                         >
-                            Projects
-                        </Link>
-                        <Link to={"/blogs"} className="hover:text-blue-400 transition-colors">
-                            Blogs
-                        </Link>
-                        <Link
-                            to={"/contact"}
+                            Publications
+                        </a>
+                        <a href="#activities" className="hover:text-blue-400 transition-colors">
+                            Activities
+                        </a>
+                        <a
+                            href="#appoinments"
                             className="hover:text-blue-400 transition-colors"
                         >
-                            Contact
-                        </Link>
+                            Appoinments
+                        </a>
                     </div>
 
                     {/* Mobile Menu Button */}
@@ -111,34 +111,34 @@ const Nav = () => {
                             >
                                 Home
                             </Link>
-                            <Link
-                                to={"/about"}
+                            <a
+                                href="#about"
                                 onClick={() => setMenuOpen(false)}
                                 className="hover:text-blue-400 transition-colors"
                             >
                                 About
-                            </Link>
-                            <Link
-                                to={"/projects"}
+                            </a>
+                            <a
+                                href="#publications"
                                 onClick={() => setMenuOpen(false)}
                                 className="hover:text-blue-400 transition-colors"
                             >
-                                Projects
-                            </Link>
-                            <Link
-                                to={"/blogs"}
+                                Publications
+                            </a>
+                            <a
+                                href="#activities"
                                 onClick={() => setMenuOpen(false)}
                                 className="hover:text-blue-400 transition-colors"
                             >
-                                Blogs
-                            </Link>
-                            <Link
-                                to={"/contact"}
+                                Activities
+                            </a>
+                            <a
+                                href="#appoinments"
                                 onClick={() => setMenuOpen(false)}
                                 className="hover:text-blue-400 transition-colors"
                             >
-                                Contact
-                            </Link>
+                                Appoinments
+                            </a>
                         </nav>
                     </div>
                 </div>

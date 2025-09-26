@@ -30,7 +30,9 @@ const About = () => {
         return <UpdateLoading></UpdateLoading>
     }
     return (
-        <div className='w-11/12 mx-auto text-white '>
+        <div
+            id='about'
+            className='w-11/12 mx-auto text-white '>
             {/* headline */}
             <HeadLine
                 title="About Me"
