@@ -7,7 +7,9 @@ const HomeLayout = () => {
     return (
         <div>
             <Nav />
-            <Outlet />
+            <div className="pb-20">
+                <Outlet />
+            </div>
             <Footer />
         </div>
     );
