@@ -70,7 +70,9 @@ const Activity = () => {
     }
 
     return (
-        <div className="w-11/12 mx-auto">
+        <div
+            id='activities'
+            className="w-11/12 mx-auto">
             {/* headline */}
             <HeadLine
                 title="Activity"
