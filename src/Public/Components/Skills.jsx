@@ -47,7 +47,7 @@ const Skills = () => {
     };
 
     return (
-        <div className="grid gap-6 lg:grid-cols-1 p-4">
+        <div className="grid gap-6 lg:grid-cols-1 ">
             <AnimatePresence>
                 {data.map((item, index) => (
                     <motion.div
