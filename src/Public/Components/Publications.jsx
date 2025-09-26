@@ -28,7 +28,9 @@ const Publications = () => {
     }, []);
 
     return (
-        <div className="w-11/12 mx-auto">
+        <div
+            id='publications'
+            className="w-11/12 mx-auto">
             <HeadLine
                 title={"Publications"}
                 subTitle={"Show my research and publications"}
