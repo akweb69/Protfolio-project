@@ -32,7 +32,7 @@ const Nav = () => {
     return (
         <div className="w-full py-4">
             <div className="max-w-5xl mx-auto px-6">
-                <div className="w-full flex justify-between items-center gap-4 bg-white/10 backdrop-blur-md border border-white/20 shadow-lg rounded-full px-2 md:px-3 py-2 md:py-3">
+                <div className="w-full flex justify-between items-center gap-4 bg-white/10 backdrop-blur-md border outline-1 outline-accent border-white/20 shadow-lg rounded-full px-2 md:px-3 py-2 md:py-3">
                     {/* Left: profile */}
                     <div className="flex items-center gap-3">
                         {data[0]?.profileImage && (
