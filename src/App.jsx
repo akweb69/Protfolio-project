@@ -16,6 +16,7 @@ import Experience from "./Admin/Components/Experience";
 import Appoinments from "./Admin/Components/Appoinments";
 import Reviews from "./Admin/Components/Reviews";
 import Gellery from "./Admin/Components/Gellery";
+import NotFound from "./Admin/Pages/NotFound";
 
 const App = () => {
   return (
@@ -25,13 +26,11 @@ const App = () => {
         {/* Public route */}
         <Route path="/" element={<HomeLayout />}>
           {/* children routes */}
-          <Route path="/" element={<HomePage></HomePage>} />
-
+          <Route index element={<HomePage />} />
         </Route>
 
         {/* Admin routes */}
         <Route path="/admin" element={<Dashboard />}>
-          {/* children route */}
           <Route path="hero-section" element={<HeroSection />} />
           <Route path="about-me" element={<AboutMe />} />
           <Route path="skills" element={<Skills />} />
@@ -46,8 +45,10 @@ const App = () => {
           <Route path="reviews" element={<Reviews />} />
           <Route path="gellery" element={<Gellery />} />
         </Route>
-      </Routes>
 
+        {/* 404 Not Found Route */}
+        <Route path="*" element={<NotFound />} />
+      </Routes>
     </Router>
   );
 };

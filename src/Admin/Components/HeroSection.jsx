@@ -174,7 +174,7 @@ const HeroSection = () => {
                 {/* Name */}
                 <div>
                     <label htmlFor="name" className="block text-sm mb-1 font-medium">
-                        Hero Name
+                        Your Name
                     </label>
                     <input
                         type="text"
