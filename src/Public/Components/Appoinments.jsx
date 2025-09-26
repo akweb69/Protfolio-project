@@ -1,11 +1,12 @@
-import axios from 'axios';
-import React, { useEffect, useState } from 'react';
-import HeadLine from './HeadLine';
-import toast from 'react-hot-toast';
+import axios from "axios";
+import React, { useState } from "react";
+import HeadLine from "./HeadLine";
+import toast from "react-hot-toast";
 
-const Appoinments = () => {
+const Appointments = () => {
     const [loading, setLoading] = useState(false);
     const base_url = import.meta.env.VITE_BASE_URL;
+
     // handle submit
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -21,45 +22,50 @@ const Appoinments = () => {
             });
 
             if (res.data.acknowledged) {
-                toast.success("Appointment booked successfully")
+                toast.success("Appointment booked successfully");
                 e.target.reset();
             }
         } catch (error) {
             console.log(error);
-            toast.error("Failed to book appointment")
+            toast.error("Failed to book appointment");
         }
         setLoading(false);
-    }
+    };
 
     return (
         <div
-            id='appoinments'
-            className='w-11/12 mx-auto'>
+            id="appointments"
+            className="w-11/12 mx-auto py-16 "
+        >
             {/* headline */}
             <HeadLine
-                title="Appoinments"
-                subTitle={"Book an appointment with us and let's create something amazing together."}
+                title="Appointments"
+                subTitle="Book an appointment with us and let's create something amazing together."
             />
+
             {/* main content */}
-            <main className="lg:grid lg:grid-cols-2 gap-8 items-center">
+            <main className="lg:grid lg:grid-cols-2 gap-12 items-center mt-10">
                 {/* left side icon sections */}
                 <div className="flex justify-center items-center w-full">
                     <img
-                        className='w-full md:w-[80%]'
-                        src="https://i.ibb.co.com/TDNYPCfx/pngtree-cartoon-hand-drawn-mobile-appointment-calendar-illustration-png-image-2268817-removebg-previ.png" alt="" />
+                        className="w-full md:w-[80%] drop-shadow-[0_0_25px_#22d3ee80]"
+                        src="https://i.ibb.co.com/TDNYPCfx/pngtree-cartoon-hand-drawn-mobile-appointment-calendar-illustration-png-image-2268817-removebg-previ.png"
+                        alt="appointment"
+                    />
                 </div>
+
+                {/* form */}
                 <form
                     onSubmit={handleSubmit}
-                    className="backdrop-blur-lg bg-white/10 border border-cyan-400/50 
-             p-8 rounded-2xl 
-             w-full"
+                    className="backdrop-blur-xl bg-gray-900/70 border border-gray-700 
+  p-8 rounded-2xl w-full text-white shadow-lg"
                 >
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                         {/* Name */}
                         <div>
                             <label
                                 htmlFor="name"
-                                className="block text-sm font-medium text-cyan-300 drop-shadow-md"
+                                className="block text-sm font-medium text-gray-300"
                             >
                                 Name
                             </label>
@@ -67,9 +73,9 @@ const Appoinments = () => {
                                 type="text"
                                 id="name"
                                 name="name"
-                                className="mt-1 p-3 rounded-lg w-full bg-black/30 text-white 
-                   border border-cyan-400/40 focus:outline-none focus:ring-2 
-                   focus:ring-cyan-400 "
+                                className="mt-1 p-3 rounded-lg w-full bg-gray-800 text-white 
+        border border-gray-700 focus:outline-none 
+        focus:ring-2 focus:ring-cyan-500 transition-all"
                                 required
                             />
                         </div>
@@ -78,7 +84,7 @@ const Appoinments = () => {
                         <div>
                             <label
                                 htmlFor="email"
-                                className="block text-sm font-medium text-cyan-300 drop-shadow-md"
+                                className="block text-sm font-medium text-gray-300"
                             >
                                 Email
                             </label>
@@ -86,9 +92,9 @@ const Appoinments = () => {
                                 type="email"
                                 id="email"
                                 name="email"
-                                className="mt-1 p-3 rounded-lg w-full bg-black/30 text-white 
-                   border border-cyan-400/40 focus:outline-none focus:ring-2 
-                   focus:ring-cyan-400 "
+                                className="mt-1 p-3 rounded-lg w-full bg-gray-800 text-white 
+        border border-gray-700 focus:outline-none 
+        focus:ring-2 focus:ring-cyan-500 transition-all"
                                 required
                             />
                         </div>
@@ -97,7 +103,7 @@ const Appoinments = () => {
                         <div>
                             <label
                                 htmlFor="phone"
-                                className="block text-sm font-medium text-cyan-300 drop-shadow-md"
+                                className="block text-sm font-medium text-gray-300"
                             >
                                 Phone
                             </label>
@@ -105,9 +111,9 @@ const Appoinments = () => {
                                 type="tel"
                                 id="phone"
                                 name="phone"
-                                className="mt-1 p-3 rounded-lg w-full bg-black/30 text-white 
-                   border border-cyan-400/40 focus:outline-none focus:ring-2 
-                   focus:ring-cyan-400 "
+                                className="mt-1 p-3 rounded-lg w-full bg-gray-800 text-white 
+        border border-gray-700 focus:outline-none 
+        focus:ring-2 focus:ring-cyan-500 transition-all"
                                 required
                             />
                         </div>
@@ -116,7 +122,7 @@ const Appoinments = () => {
                         <div>
                             <label
                                 htmlFor="date"
-                                className="block text-sm font-medium text-cyan-300 drop-shadow-md"
+                                className="block text-sm font-medium text-gray-300"
                             >
                                 Date
                             </label>
@@ -124,18 +130,18 @@ const Appoinments = () => {
                                 type="date"
                                 id="date"
                                 name="date"
-                                className="mt-1 p-3 rounded-lg w-full bg-black/30 text-white 
-                   border border-cyan-400/40 focus:outline-none focus:ring-2 
-                   focus:ring-cyan-400 "
+                                className="mt-1 p-3 rounded-lg w-full bg-gray-800 text-white 
+        border border-gray-700 focus:outline-none 
+        focus:ring-2 focus:ring-cyan-500 transition-all"
                                 required
                             />
                         </div>
 
                         {/* Time */}
-                        <div className='col-span-2'>
+                        <div className="md:col-span-2">
                             <label
                                 htmlFor="time"
-                                className="block text-sm font-medium text-cyan-300 drop-shadow-md"
+                                className="block text-sm font-medium text-gray-300"
                             >
                                 Time
                             </label>
@@ -143,9 +149,9 @@ const Appoinments = () => {
                                 type="time"
                                 id="time"
                                 name="time"
-                                className="mt-1 p-3 rounded-lg w-full bg-black/30 text-white 
-                   border border-cyan-400/40 focus:outline-none focus:ring-2 
-                   focus:ring-cyan-400 "
+                                className="mt-1 p-3 rounded-lg w-full bg-gray-800 text-white 
+        border border-gray-700 focus:outline-none 
+        focus:ring-2 focus:ring-cyan-500 transition-all"
                                 required
                             />
                         </div>
@@ -154,7 +160,7 @@ const Appoinments = () => {
                         <div className="md:col-span-2">
                             <label
                                 htmlFor="message"
-                                className="block text-sm font-medium text-cyan-300 drop-shadow-md"
+                                className="block text-sm font-medium text-gray-300"
                             >
                                 Message
                             </label>
@@ -162,9 +168,9 @@ const Appoinments = () => {
                                 id="message"
                                 name="message"
                                 rows="4"
-                                className="mt-1 p-3 rounded-lg w-full bg-black/30 text-white 
-                   border border-cyan-400/40 focus:outline-none focus:ring-2 
-                   focus:ring-cyan-400 "
+                                className="mt-1 p-3 rounded-lg w-full bg-gray-800 text-white 
+        border border-gray-700 focus:outline-none 
+        focus:ring-2 focus:ring-cyan-500 transition-all"
                                 required
                             ></textarea>
                         </div>
@@ -174,9 +180,8 @@ const Appoinments = () => {
                     <div className="flex justify-end mt-6">
                         <button
                             type="submit"
-                            className="px-6 py-3 rounded-lg bg-cyan-500 text-white font-semibold 
-                 shadow-[0_0_10px_#22d3ee,0_0_20px_#22d3ee] hover:shadow-[0_0_20px_#22d3ee,0_0_40px_#22d3ee] 
-                 transition-all duration-300"
+                            className="px-6 py-3 rounded-lg bg-cyan-600 hover:bg-cyan-500 
+      text-white font-semibold transition-all duration-300"
                         >
                             {loading ? "Booking..." : "Book Now"}
                         </button>
@@ -184,9 +189,8 @@ const Appoinments = () => {
                 </form>
 
             </main>
-
         </div>
     );
 };
 
-export default Appoinments;
+export default Appointments;
