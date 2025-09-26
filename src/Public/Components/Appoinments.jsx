@@ -32,7 +32,9 @@ const Appoinments = () => {
     }
 
     return (
-        <div className='w-11/12 mx-auto'>
+        <div
+            id='appoinments'
+            className='w-11/12 mx-auto'>
             {/* headline */}
             <HeadLine
                 title="Appoinments"
