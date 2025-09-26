@@ -129,7 +129,7 @@ const Activity = () => {
                                         <FaRegCalendarAlt className="text-orange-400" />
                                         {activity.activityTitle}
                                     </h3>
-                                    <p className="text-gray-300 text-sm leading-relaxed bg-gray-700/30 rounded-lg p-4 shadow-inner whitespace-pre-wrap">
+                                    <p className="text-gray-300 text-sm leading-relaxed bg-gray-700/30 rounded-lg p-4 shadow-inner whitespace-pre-wrap overflow-scroll">
                                         {activity?.activityDescription}
                                     </p>
                                 </div>
