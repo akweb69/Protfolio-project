@@ -32,7 +32,7 @@ const Nav = () => {
     return (
         <div className="w-full py-4">
             <div className="max-w-5xl mx-auto px-6">
-                <div className="w-full flex justify-between items-center gap-4 bg-white/10 backdrop-blur-md border border-white/20 shadow-lg rounded-full px-6 py-3">
+                <div className="w-full flex justify-between items-center gap-4 bg-white/10 backdrop-blur-md border border-white/20 shadow-lg rounded-full px-2 md:px-3 py-2 md:py-3">
                     {/* Left: profile */}
                     <div className="flex items-center gap-3">
                         {data[0]?.profileImage && (
@@ -42,7 +42,7 @@ const Nav = () => {
                                 className="w-12 h-12 rounded-full object-cover border border-white/30 shadow-md p-0.5 "
                             />
                         )}
-                        <h2 className="text-xl md:text-2xl font-semibold text-white tracking-wide">
+                        <h2 className=" md:text-xl lg:text-2xl font-semibold text-white tracking-wide">
                             {data[0]?.name || "Loading..."}
                         </h2>
                     </div>
@@ -76,7 +76,7 @@ const Nav = () => {
                     <div className="md:hidden">
                         <button
                             onClick={() => setMenuOpen(true)}
-                            className="text-white text-2xl focus:outline-none hover:text-blue-400 transition-colors duration-200"
+                            className="text-white text-2xl mr-2 focus:outline-none hover:text-blue-400 transition-colors duration-200"
                         >
                             ☰
                         </button>
