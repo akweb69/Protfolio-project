@@ -1,116 +1,141 @@
-import axios from "axios";
-import React, { useEffect } from "react";
-import toast from "react-hot-toast";
-import UpdateLoading from "./UpdateLoading";
+import React, { useState, useEffect } from "react";
 
 const Gellery = () => {
-    const [formData, setFormData] = React.useState({
-        descriptions: "", name: "",
-    });
-    // handle loading
-    const [loading, setLoading] = React.useState(false);
+    const [formData, setFormData] = useState({ title: "", image: "" });
+    const [preview, setPreview] = useState("");
+    const [loading, setLoading] = useState(false);
+    const [gallery, setGallery] = useState([]);
+    const BASE_URL = import.meta.env.VITE_BASE_URL; // <-- backend API
+    const IMGBB_KEY = import.meta.env.VITE_IMGBB_KEY; // <-- imgbb key
 
-    const BASE_URL = import.meta.env.VITE_BASE_URL;
-    const handleChange = (e) => {
-        const { name, value } = e.target;
-        setFormData((prevData) => ({
-            ...prevData,
-            [name]: value,
-        }));
-    };
-
-
-    // load default value
+    // Load all gallery data
     useEffect(() => {
-        setLoading(true)
-        axios
-            .get(`${BASE_URL}/about-section`)
-            .then((response) => {
-                setFormData(response.data[0]);
-                setLoading(false);
-            })
-            .catch((error) => {
-                console.error("Error fetching about section data:", error);
-                toast.error("Error fetching about section data.");
-                setLoading(false);
-            });
-    }, []);
+        fetch(`${BASE_URL}/gallery`)
+            .then((res) => res.json())
+            .then((data) => setGallery(data))
+            .catch((err) => console.error(err));
+    }, [BASE_URL]);
 
-    const handleSubmit = async (e) => {
-        e.preventDefault();
+    // handle file upload to imgbb
+    const handleFileChange = async (e) => {
+        const file = e.target.files[0];
+        if (!file) return;
+
         setLoading(true);
-        const id = "68cbd163653bd1b3d06c40aa"
+        const formData = new FormData();
+        formData.append("image", file);
+
         try {
-            const response = await axios.patch(
-                `${BASE_URL}/update-about-section/${id}`,
-                formData
-            );
-            console.log("About section updated successfully:", response.data);
-            toast.success("About section updated successfully!");
+            const res = await fetch(`https://api.imgbb.com/1/upload?key=${IMGBB_KEY}`, {
+                method: "POST",
+                body: formData,
+            });
+            const data = await res.json();
+            if (data.success) {
+                setFormData((prev) => ({ ...prev, image: data.data.url }));
+                setPreview(data.data.url);
+            }
         } catch (error) {
-            console.error("Error updating about section:", error);
-            toast.error("Error updating about section.");
+            console.error("Image upload error:", error);
         } finally {
             setLoading(false);
         }
     };
-    if (loading) {
-        return (
-            <UpdateLoading></UpdateLoading>
-        )
-    }
+
+    // handle title input
+    const handleChange = (e) => {
+        setFormData({ ...formData, title: e.target.value });
+    };
+
+    // handle submit
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        if (!formData.title || !formData.image) return alert("Please add title and image");
+
+        try {
+            const res = await fetch(`${BASE_URL}/gallery`, {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(formData),
+            });
+            const newData = await res.json();
+            setGallery([...gallery, newData]);
+            setFormData({ title: "", image: "" });
+            setPreview("");
+        } catch (err) {
+            console.error(err);
+        }
+    };
+
+    // handle delete
+    const handleDelete = async (id) => {
+        try {
+            await fetch(`${BASE_URL}/gallery/${id}`, { method: "DELETE" });
+            setGallery(gallery.filter((item) => item._id !== id));
+        } catch (err) {
+            console.error(err);
+        }
+    };
 
     return (
-        <div className="w-full h-full bg-black/10 backdrop-blur-md shadow-lg rounded-2xl p-6">
-            <h2 className="text-white text-3xl font-bold mb-2">Update About Section</h2>
-            <p className="text-gray-300">Manage the about  section content and settings.</p>
-            <div className="divider"></div>
+        <div className="max-w-3xl mx-auto p-6">
+            {/* Upload Form */}
             <form
                 onSubmit={handleSubmit}
-                className="mt-6 grid md:grid-cols-2 gap-6 text-white"
+                className="bg-white shadow-md rounded-lg p-4 mb-6"
             >
-                {/* Hero Name */}
-                <div>
-                    <label htmlFor="name" className="block text-sm mb-1 font-medium">
-                        Your Name
-                    </label>
-                    <input
-                        type="text"
-                        id="name"
-                        name="name"
-                        value={formData.name}
-                        onChange={handleChange}
-                        placeholder="Enter hero name..."
-                        className="w-full p-3 bg-transparent border border-gray-500 rounded-xl focus:border-accent focus:ring-2 focus:ring-accent/50 transition"
+                <input
+                    type="text"
+                    name="title"
+                    value={formData.title}
+                    onChange={handleChange}
+                    placeholder="Enter image title"
+                    className="border p-2 w-full rounded mb-3"
+                />
+                <input
+                    type="file"
+                    accept="image/*"
+                    onChange={handleFileChange}
+                    className="mb-3"
+                />
+                {loading && <p className="text-blue-500">Uploading...</p>}
+                {preview && (
+                    <img
+                        src={preview}
+                        alt="preview"
+                        className="w-32 h-32 object-cover rounded mb-3"
                     />
-                </div>
-                {/* Descriptions */}
-                <div className="md:col-span-2">
-                    <label htmlFor="descriptions" className="block text-sm mb-1 font-medium">
-                        About Descriptions
-                    </label>
-                    <textarea
-                        id="descriptions"
-                        name="descriptions"
-                        value={formData.descriptions}
-                        onChange={handleChange}
-                        placeholder="Write short description..."
-                        rows={10}
-                        className="w-full p-3 bg-transparent border border-gray-500 rounded-xl focus:border-accent focus:ring-2 focus:ring-accent/50 transition"
-                    />
-                </div>
-
-                {/* Submit Button */}
-                <div className="md:col-span-2 flex justify-end">
-                    <button
-                        type="submit"
-                        disabled={loading}
-                        className="bg-accent text-black hover:bg-accent/80 font-semibold py-2 px-6 rounded-xl shadow-md transition disabled:opacity-50"
-                    >
-                        {loading ? "Updating..." : "Update About Section"}
-                    </button>
-                </div>
+                )}
+                <button
+                    type="submit"
+                    className="bg-blue-500 text-white py-2 px-4 rounded"
+                >
+                    Save
+                </button>
             </form>
+
+            {/* Gallery List */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                {gallery.map((item) => (
+                    <div
+                        key={item._id}
+                        className="bg-gray-100 p-4 rounded shadow relative"
+                    >
+                        <img
+                            src={item.image}
+                            alt={item.title}
+                            className="w-full h-40 object-cover rounded"
+                        />
+                        <h3 className="mt-2 font-semibold">{item.title}</h3>
+                        <button
+                            onClick={() => handleDelete(item._id)}
+                            className="absolute top-2 right-2 bg-red-500 text-white px-2 py-1 rounded text-sm"
+                        >
+                            Delete
+                        </button>
+                    </div>
+                ))}
+            </div>
         </div>
     );
 };

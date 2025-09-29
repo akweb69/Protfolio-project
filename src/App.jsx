@@ -31,6 +31,7 @@ const App = () => {
 
         {/* Admin routes */}
         <Route path="/admin" element={<Dashboard />}>
+          <Route path="" element={<HeroSection />} />
           <Route path="hero-section" element={<HeroSection />} />
           <Route path="about-me" element={<AboutMe />} />
           <Route path="skills" element={<Skills />} />
