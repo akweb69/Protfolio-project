@@ -78,11 +78,11 @@ const Gellery = () => {
     };
 
     return (
-        <div className="max-w-3xl mx-auto p-6">
+        <div className="w-full mx-auto p-6">
             {/* Upload Form */}
             <form
                 onSubmit={handleSubmit}
-                className="bg-white shadow-md rounded-lg p-4 mb-6"
+                className="bg-white/10 shadow-md rounded-lg p-4  max-w-xl mb-10 mx-auto"
             >
                 <input
                     type="text"
@@ -90,32 +90,32 @@ const Gellery = () => {
                     value={formData.title}
                     onChange={handleChange}
                     placeholder="Enter image title"
-                    className="border p-2 w-full rounded mb-3"
+                    className="border p-2 w-full bg-transparent text-white rounded mb-3 input input-accent"
                 />
                 <input
                     type="file"
                     accept="image/*"
                     onChange={handleFileChange}
-                    className="mb-3"
+                    className="mb-3 w-full file-input file-input-accent bg-transparent"
                 />
                 {loading && <p className="text-blue-500">Uploading...</p>}
                 {preview && (
                     <img
                         src={preview}
                         alt="preview"
-                        className="w-32 h-32 object-cover rounded mb-3"
+                        className="w-full h-48 object-cover rounded mb-3"
                     />
                 )}
                 <button
                     type="submit"
-                    className="bg-blue-500 text-white py-2 px-4 rounded"
+                    className=" btn btn-accent w-full text-white py-2 px-4 rounded"
                 >
                     Save
                 </button>
             </form>
 
             {/* Gallery List */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
                 {gallery.map((item) => (
                     <div
                         key={item._id}
