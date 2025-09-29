@@ -6,6 +6,7 @@ import Trainings from '../Components/Trainings';
 import Activity from '../Components/Activity';
 import Experiences from '../Components/Experiences';
 import Appoinments from '../Components/Appoinments';
+import Gallery from '../Components/Gallery';
 
 const HomePage = () => {
     return (
@@ -17,6 +18,7 @@ const HomePage = () => {
             <Activity />
             <Experiences />
             <Appoinments />
+            <Gallery></Gallery>
         </div>
     );
 };
