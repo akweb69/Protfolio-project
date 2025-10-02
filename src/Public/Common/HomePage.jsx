@@ -10,6 +10,7 @@ import Gallery from '../Components/Gallery';
 import Review from '../Components/review';
 import axios from 'axios';
 import UpdateLoading from '../../Admin/Components/UpdateLoading';
+import LeadershipPublic from '../Components/LeadershipPublice';
 
 const HomePage = () => {
     const [visibility, setVisibility] = useState({
@@ -51,6 +52,7 @@ const HomePage = () => {
             {visibility?.trainingVisibility === "visible" && <Trainings />}
             {visibility?.activitiesVisibility === "visible" && <Activity />}
             {visibility?.experiencesVisibility === "visible" && <Experiences />}
+            {visibility?.leadershipVisibility === "visible" && <LeadershipPublic />}
             {visibility?.appointmentsVisibility === "visible" && <Appoinments />}
             {visibility?.galleryVisibility === "visible" && <Gallery />}
             {visibility?.reviewsVisibility === "visible" && <Review />}

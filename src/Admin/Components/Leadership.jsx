@@ -1,8 +1,8 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
 import toast from "react-hot-toast";
-import UpdateLoading from "./UpdateLoading";
 import { FaTrash, FaEdit } from "react-icons/fa";
+import UpdateLoading from "./UpdateLoading";
 
 const Leadership = () => {
     const [formData, setFormData] = useState({
@@ -11,12 +11,14 @@ const Leadership = () => {
         description: "",
         date: "",
         achievement: "",
-        image: "",
+        image: "", // This will store the ImgBB URL after upload
     });
+    const [selectedFile, setSelectedFile] = useState(null); // State for file input
     const [leaderships, setLeaderships] = useState([]);
     const [editingId, setEditingId] = useState(null);
     const [loading, setLoading] = useState(false);
     const BASE_URL = import.meta.env.VITE_BASE_URL;
+    const IMGBB_API_KEY = import.meta.env.VITE_IMGBB_KEY; // ImgBB API key from environment
 
     // Fetch leadership data
     useEffect(() => {
@@ -35,30 +37,79 @@ const Leadership = () => {
         fetchLeaderships();
     }, [BASE_URL]);
 
-    // Handle form input changes
+    // Handle text input changes
     const handleChange = (e) => {
         const { name, value } = e.target;
         setFormData((prev) => ({ ...prev, [name]: value }));
+    };
+
+    // Handle file input change
+    const handleFileChange = (e) => {
+        const file = e.target.files[0];
+        if (file) {
+            setSelectedFile(file);
+        }
+    };
+
+    // Upload image to ImgBB
+    const uploadImageToImgBB = async (file) => {
+        if (!file) return null;
+
+        const imgBBFormData = new FormData();
+        imgBBFormData.append("image", file);
+
+        try {
+            const response = await axios.post(
+                "https://api.imgbb.com/1/upload",
+                imgBBFormData,
+                {
+                    params: {
+                        key: IMGBB_API_KEY,
+                    },
+                }
+            );
+            return response.data.data.url; // Return the image URL
+        } catch (error) {
+            console.error("Error uploading image to ImgBB:", error);
+            toast.error("Failed to upload image");
+            return null;
+        }
     };
 
     // Handle form submission (create or update)
     const handleSubmit = async (e) => {
         e.preventDefault();
         setLoading(true);
+
         try {
+            let imageUrl = formData.image;
+
+            // Upload image to ImgBB if a file is selected
+            if (selectedFile) {
+                imageUrl = await uploadImageToImgBB(selectedFile);
+                if (!imageUrl) {
+                    setLoading(false);
+                    return; // Stop if image upload fails
+                }
+            }
+
+            const updatedFormData = { ...formData, image: imageUrl || "" };
+
             if (editingId) {
                 // Update existing leadership
-                await axios.patch(`${BASE_URL}/leadership/${editingId}`, formData);
+                await axios.patch(`${BASE_URL}/leadership/${editingId}`, updatedFormData);
                 toast.success("Leadership updated successfully");
                 setEditingId(null);
             } else {
                 // Create new leadership
-                await axios.post(`${BASE_URL}/leadership`, formData);
+                await axios.post(`${BASE_URL}/leadership`, updatedFormData);
                 toast.success("Leadership added successfully");
             }
+
             // Refresh leadership list
             const response = await axios.get(`${BASE_URL}/leadership`);
             setLeaderships(response.data);
+
             // Reset form
             setFormData({
                 title: "",
@@ -68,6 +119,7 @@ const Leadership = () => {
                 achievement: "",
                 image: "",
             });
+            setSelectedFile(null); // Reset file input
         } catch (error) {
             console.error("Error saving leadership:", error);
             toast.error(`Failed to ${editingId ? "update" : "add"} leadership`);
@@ -86,6 +138,7 @@ const Leadership = () => {
             achievement: leadership.achievement,
             image: leadership.image || "",
         });
+        setSelectedFile(null); // Reset file input when editing
         setEditingId(leadership._id);
     };
 
@@ -191,17 +244,26 @@ const Leadership = () => {
                 </div>
                 <div className="md:col-span-2">
                     <label htmlFor="image" className="block text-sm mb-1 font-medium">
-                        Image URL (Optional)
+                        Upload Image (Optional)
                     </label>
                     <input
-                        type="url"
+                        type="file"
                         id="image"
                         name="image"
-                        value={formData.image}
-                        onChange={handleChange}
-                        placeholder="Enter image URL..."
+                        accept="image/*"
+                        onChange={handleFileChange}
                         className="w-full p-3 bg-transparent border border-gray-500 rounded-xl focus:border-accent focus:ring-2 focus:ring-accent/50 transition"
                     />
+                    {formData.image && (
+                        <div className="mt-2">
+                            <p className="text-gray-300">Current Image URL: {formData.image}</p>
+                            <img
+                                src={formData.image}
+                                alt="Preview"
+                                className="mt-2 h-20 w-20 object-cover rounded"
+                            />
+                        </div>
+                    )}
                 </div>
                 <div className="md:col-span-2 flex justify-end gap-4">
                     <button
@@ -224,6 +286,7 @@ const Leadership = () => {
                                     achievement: "",
                                     image: "",
                                 });
+                                setSelectedFile(null);
                             }}
                             className="bg-gray-500 text-white hover:bg-gray-600 font-semibold py-2 px-6 rounded-xl shadow-md transition"
                         >
@@ -249,6 +312,13 @@ const Leadership = () => {
                                     <h4 className="text-lg font-semibold">{leadership.title}</h4>
                                     <p className="text-gray-300">{leadership.subtitle}</p>
                                     <p className="text-sm">{new Date(leadership.date).toLocaleDateString()}</p>
+                                    {leadership.image && (
+                                        <img
+                                            src={leadership.image}
+                                            alt={leadership.title}
+                                            className="mt-2 h-16 w-16 object-cover rounded"
+                                        />
+                                    )}
                                 </div>
                                 <div className="flex gap-2">
                                     <button

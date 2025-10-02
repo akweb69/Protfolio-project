@@ -3,7 +3,8 @@ import axios from "axios";
 import { motion, AnimatePresence } from "framer-motion";
 import { FaTrophy, FaCalendarAlt } from "react-icons/fa";
 import HeadLine from "./HeadLine";
-import UpdateLoading from "./UpdateLoading";
+import UpdateLoading from "../../Admin/Components/UpdateLoading";
+
 
 const LeadershipPublic = () => {
     const [leaderships, setLeaderships] = useState([]);
