@@ -60,7 +60,7 @@ const LeadershipPublic = () => {
                                         )}
                                         <h3 className="text-xl font-bold text-white">{leadership.title}</h3>
                                         <p className="text-gray-300">{leadership.subtitle}</p>
-                                        <p className="text-gray-400 mt-2">{leadership.description}</p>
+                                        <p className="text-gray-400 mt-2 whitespace-pre-line">{leadership.description}</p>
                                         <div className="flex items-center gap-2 mt-4">
                                             <FaCalendarAlt className="text-accent" />
                                             <span className="text-gray-300">
