@@ -1,141 +1,124 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import axios from "axios";
+import toast from "react-hot-toast";
 
 const Settings = () => {
-    const [heroVisibility, setHeroVisibility] = useState("visible");
-    const [aboutVisibility, setAboutVisibility] = useState("visible");
-    const [publicationsVisibility, setPublicationsVisibility] = useState("visible");
-    const [trainingVisibility, setTrainingVisibility] = useState("visible");
-    const [activitiesVisibility, setActivitiesVisibility] = useState("visible");
-    const [experiencesVisibility, setExperiencesVisibility] = useState("visible");
-    const [appointmentsVisibility, setAppointmentsVisibility] = useState("visible");
-    const [galleryVisibility, setGalleryVisibility] = useState("visible");
-    const [leadershipVisibility, setLeadershipVisibility] = useState("visible");
+    const [visibility, setVisibility] = useState({
+        hero: "visible",
+        about: "visible",
+        publications: "visible",
+        training: "visible",
+        activities: "visible",
+        experiences: "visible",
+        appointments: "visible",
+        gallery: "visible",
+        leadership: "visible",
+    });
+    const [loading, setLoading] = useState(false);
+
+    // Fetch initial settings from the server
+    useEffect(() => {
+        const fetchSettings = async () => {
+            try {
+                const response = await axios.get(`${import.meta.env.VITE_BASE_URL}/settings`);
+                if (response.data) {
+                    setVisibility({
+                        hero: response.data[0].heroVisibility || "visible",
+                        about: response.data[0].aboutVisibility || "visible",
+                        publications: response.data[0].publicationsVisibility || "visible",
+                        training: response.data[0].trainingVisibility || "visible",
+                        activities: response.data[0].activitiesVisibility || "visible",
+                        experiences: response.data[0].experiencesVisibility || "visible",
+                        appointments: response.data[0].appointmentsVisibility || "visible",
+                        gallery: response.data[0].galleryVisibility || "visible",
+                        leadership: response.data[0].leadershipVisibility || "visible",
+                    });
+                }
+            } catch (error) {
+                console.error("Error fetching settings:", error);
+                toast.error("Failed to load settings");
+            }
+        };
+        fetchSettings();
+    }, []);
+
+    // Function to handle visibility toggle
+    const toggleVisibility = async (section, value) => {
+        if (loading) return; // Prevent multiple clicks
+        setLoading(true);
+        try {
+            const newVisibility = { ...visibility, [section]: value };
+            setVisibility(newVisibility);
+
+            // Prepare data for database
+            const mainData = {
+                heroVisibility: newVisibility.hero,
+                aboutVisibility: newVisibility.about,
+                publicationsVisibility: newVisibility.publications,
+                trainingVisibility: newVisibility.training,
+                activitiesVisibility: newVisibility.activities,
+                experiencesVisibility: newVisibility.experiences,
+                appointmentsVisibility: newVisibility.appointments,
+                galleryVisibility: newVisibility.gallery,
+                leadershipVisibility: newVisibility.leadership,
+            };
+
+            // Send data to server
+            await axios.post(`${import.meta.env.VITE_BASE_URL}/settings`, mainData);
+            toast.success("Settings saved successfully");
+        } catch (error) {
+            console.error("Error saving settings:", error);
+            toast.error("Failed to save settings");
+        } finally {
+            setLoading(false);
+        }
+    };
+
+    // Array of sections for dynamic rendering
+    const sections = [
+        { key: "hero", label: "Hero Section" },
+        { key: "about", label: "About Section" },
+        { key: "publications", label: "Publications Section" },
+        { key: "training", label: "Training Section" },
+        { key: "activities", label: "Activities Section" },
+        { key: "experiences", label: "Experiences Section" },
+        { key: "appointments", label: "Appointments Section" },
+        { key: "gallery", label: "Gallery Section" },
+        { key: "leadership", label: "Leadership Section" },
+    ];
 
     return (
         <div className="w-full p-4 bg-white/10 rounded-xl">
             <h2 className="text-2xl font-bold text-white mb-6">Settings</h2>
-            {/* form */}
-            <div className="space-y-4 ">
-                {/* hero section */}
-                <div className="flex justify-between items-center gap-4 border border-white/10 rounded-lg p-4">
-                    <h1 className="text-white text-lg md:text-xl font-semibold">Hero Section Visibility</h1>
-                    <div className="flex items-center gap-4">
-                        <div
-                            onClick={() => setHeroVisibility("visible")}
-                            className="btn btn-accent">Visible</div>
-                        <div
-                            onClick={() => setHeroVisibility("hidden")}
-                            className="btn btn-accent">Hidden</div>
+            <div className="space-y-4">
+                {sections.map(({ key, label }) => (
+                    <div
+                        key={key}
+                        className="flex justify-between items-center gap-4 border border-white/10 rounded-lg p-4"
+                    >
+                        <h1 className="text-white text-lg md:text-xl font-semibold">
+                            {label} Visibility
+                        </h1>
+                        <div className="flex items-center gap-4">
+                            <button
+                                onClick={() => toggleVisibility(key, "visible")}
+                                className={`btn btn-accent ${visibility[key] === "visible" ? "bg-green-500" : "bg-gray-500"
+                                    } ${loading ? "opacity-50 cursor-not-allowed" : ""}`}
+                                disabled={loading}
+                            >
+                                Visible
+                            </button>
+                            <button
+                                onClick={() => toggleVisibility(key, "hidden")}
+                                className={`btn btn-accent ${visibility[key] === "hidden" ? "bg-red-500" : "bg-gray-500"
+                                    } ${loading ? "opacity-50 cursor-not-allowed" : ""}`}
+                                disabled={loading}
+                            >
+                                Hidden
+                            </button>
+                        </div>
                     </div>
-                </div>
-                {/* About section */}
-                <div className="flex justify-between items-center gap-4 border border-white/10 rounded-lg p-4">
-                    <h1 className="text-white text-lg md:text-xl font-semibold">About Section Visibility</h1>
-                    <div className="flex items-center gap-4">
-                        <div
-                            onClick={() => setAboutVisibility("visible")}
-                            className="btn btn-accent">Visible</div>
-                        <div
-                            onClick={() => setAboutVisibility("hidden")}
-                            className="btn btn-accent">Hidden</div>
-                    </div>
-                </div>
-                {/* Publications sections */}
-                <div className="flex justify-between items-center gap-4 border border-white/10 rounded-lg p-4">
-                    <h1 className="text-white text-lg md:text-xl font-semibold">Publications Section Visibility</h1>
-                    <div className="flex items-center gap-4">
-                        <div
-                            onClick={() => setPublicationsVisibility("visible")}
-                            className="btn btn-accent">Visible</div>
-                        <div
-                            onClick={() => setPublicationsVisibility("hidden")}
-                            className="btn btn-accent">Hidden</div>
-                    </div>
-                </div>
-                {/* Training sections */}
-                <div className="flex justify-between items-center gap-4 border border-white/10 rounded-lg p-4">
-                    <h1 className="text-white text-lg md:text-xl font-semibold">Training Section Visibility</h1>
-                    <div className="flex items-center gap-4">
-                        <div
-                            onClick={() => setTrainingVisibility("visible")}
-                            className="btn btn-accent">Visible</div>
-                        <div
-                            onClick={() => setTrainingVisibility("hidden")}
-                            className="btn btn-accent">Hidden</div>
-                    </div>
-                </div>
-                {/* Activities sections */}
-                <div className="flex justify-between items-center gap-4 border border-white/10 rounded-lg p-4">
-                    <h1 className="text-white text-lg md:text-xl font-semibold">Activities Section Visibility</h1>
-                    <div className="flex items-center gap-4">
-                        <div
-                            onClick={() => setActivitiesVisibility("visible")}
-                            className="btn btn-accent">Visible</div>
-                        <div
-                            onClick={() => setActivitiesVisibility("hidden")}
-                            className="btn btn-accent">Hidden</div>
-                    </div>
-                </div>
-                {/* Experiences sections */}
-                <div className="flex justify-between items-center gap-4 border border-white/10 rounded-lg p-4">
-                    <h1 className="text-white text-lg md:text-xl font-semibold">Experiences Section Visibility</h1>
-                    <div className="flex items-center gap-4">
-                        <div
-                            onClick={() => setExperiencesVisibility("visible")}
-                            className="btn btn-accent">Visible</div>
-                        <div
-                            onClick={() => setExperiencesVisibility("hidden")}
-                            className="btn btn-accent">Hidden</div>
-                    </div>
-                </div>
-                {/* Appointments sections */}
-                <div className="flex justify-between items-center gap-4 border border-white/10 rounded-lg p-4">
-                    <h1 className="text-white text-lg md:text-xl font-semibold">Appointments Section Visibility</h1>
-                    <div className="flex items-center gap-4">
-                        <div
-                            onClick={() => setAppointmentsVisibility("visible")}
-                            className="btn btn-accent">Visible</div>
-                        <div
-                            onClick={() => setAppointmentsVisibility("hidden")}
-                            className="btn btn-accent">Hidden</div>
-                    </div>
-                </div>
-                {/* Gallery sections */}
-                <div className="flex justify-between items-center gap-4 border border-white/10 rounded-lg p-4">
-                    <h1 className="text-white text-lg md:text-xl font-semibold">Gallery Section Visibility</h1>
-                    <div className="flex items-center gap-4">
-                        <div
-                            onClick={() => setGalleryVisibility("visible")}
-                            className="btn btn-accent">Visible</div>
-                        <div
-                            onClick={() => setGalleryVisibility("hidden")}
-                            className="btn btn-accent">Hidden</div>
-                    </div>
-                </div>
-                {/* Leadership sections */}
-                <div className="flex justify-between items-center gap-4 border border-white/10 rounded-lg p-4">
-                    <h1 className="text-white text-lg md:text-xl font-semibold">Leadership Section Visibility</h1>
-                    <div className="flex items-center gap-4">
-                        <div
-                            onClick={() => setLeadershipVisibility("visible")}
-                            className="btn btn-accent">Visible</div>
-                        <div
-                            onClick={() => setLeadershipVisibility("hidden")}
-                            className="btn btn-accent">Hidden</div>
-                    </div>
-                </div>
-                {/* Leadership sections */}
-                <div className="flex justify-between items-center gap-4 border border-white/10 rounded-lg p-4">
-                    <h1 className="text-white text-lg md:text-xl font-semibold">Leadership Section Visibility</h1>
-                    <div className="flex items-center gap-4">
-                        <div
-                            onClick={() => setLeadershipVisibility("visible")}
-                            className="btn btn-accent">Visible</div>
-                        <div
-                            onClick={() => setLeadershipVisibility("hidden")}
-                            className="btn btn-accent">Hidden</div>
-                    </div>
-                </div>
+                ))}
             </div>
         </div>
     );
