@@ -16,8 +16,8 @@ const HomePage = () => {
             <About />
             <Publications />
             <Trainings />
-            <Activity />
             <Experiences />
+            <Activity />
             <Review></Review>
             <Appoinments />
             <Gallery></Gallery>
