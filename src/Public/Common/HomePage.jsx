@@ -53,9 +53,10 @@ const HomePage = () => {
             {visibility?.activitiesVisibility === "visible" && <Activity />}
             {visibility?.experiencesVisibility === "visible" && <Experiences />}
             {visibility?.leadershipVisibility === "visible" && <LeadershipPublic />}
+            {visibility?.reviewsVisibility === "visible" && <Review />}
             {visibility?.appointmentsVisibility === "visible" && <Appoinments />}
             {visibility?.galleryVisibility === "visible" && <Gallery />}
-            {visibility?.reviewsVisibility === "visible" && <Review />}
+
         </div>
     );
 };
