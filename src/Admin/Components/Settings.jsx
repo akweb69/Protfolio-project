@@ -13,6 +13,7 @@ const Settings = () => {
         appointments: "visible",
         gallery: "visible",
         leadership: "visible",
+        reviews: "visible",
     });
     const [loading, setLoading] = useState(false);
 
@@ -32,6 +33,7 @@ const Settings = () => {
                         appointments: response.data[0].appointmentsVisibility || "visible",
                         gallery: response.data[0].galleryVisibility || "visible",
                         leadership: response.data[0].leadershipVisibility || "visible",
+                        reviews: response.data[0].reviewsVisibility || "visible",
                     });
                 }
             } catch (error) {
@@ -61,6 +63,7 @@ const Settings = () => {
                 appointmentsVisibility: newVisibility.appointments,
                 galleryVisibility: newVisibility.gallery,
                 leadershipVisibility: newVisibility.leadership,
+                reviewsVisibility: newVisibility.reviews,
             };
 
             // Send data to server
@@ -85,6 +88,7 @@ const Settings = () => {
         { key: "appointments", label: "Appointments Section" },
         { key: "gallery", label: "Gallery Section" },
         { key: "leadership", label: "Leadership Section" },
+        { key: "reviews", label: "Reviews Section" },
     ];
 
     return (
